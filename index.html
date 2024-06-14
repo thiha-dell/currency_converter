@@ -39,13 +39,15 @@
         <div class="form-group">
             <label for="baht-to-kyat">Convert Baht to Kyat:</label>
             <input type="number" class="form-control" id="baht-to-kyat" placeholder="฿">
-            <div class="result" id="kyat-result"></div>
+            <div class="" id="kyat-result"></div>
+            <div class="" id="kyat-result-profit"></div>
         </div>
 
         <div class="form-group">
             <label for="kyat-to-baht">Convert Kyat to Baht:</label>
             <input type="number" class="form-control" id="kyat-to-baht" placeholder="MMK">
-            <div class="result" id="baht-result"></div>
+            <div class="" id="baht-result"></div>
+            <div class="" id="baht-result-profit"></div>
         </div>
     </div>
 
@@ -56,7 +58,7 @@
             const kyatPerUsd = parseFloat(document.getElementById('kyat-per-usd').value);
             if (bahtPerUsd && kyatPerUsd) {
                 const kyatAmount = (100000 / kyatPerUsd) * bahtPerUsd;
-                document.getElementById('baht-in-kyat').innerText = `100,000MMK = ${kyatAmount.toFixed(2)}฿`;
+                document.getElementById('baht-in-kyat').innerText = `100,000MMK = ${new Intl.NumberFormat('en-US').format(kyatAmount.toFixed(2))}฿`;
             } else {
                 document.getElementById('baht-in-kyat').innerText = 'Null';
             }
@@ -67,7 +69,7 @@
             const kyatPerUsd = parseFloat(document.getElementById('kyat-per-usd').value);
             if (bahtPerUsd && kyatPerUsd) {
                 const bahtAmount = (1000 / bahtPerUsd) * kyatPerUsd;
-                document.getElementById('kyat-in-baht').innerText = `1,000฿ = ${bahtAmount.toFixed(2)}MMK`;
+                document.getElementById('kyat-in-baht').innerText = `1,000฿ = ${new Intl.NumberFormat('en-US').format(bahtAmount.toFixed(2))}MMK`;
             } else {
                 document.getElementById('kyat-in-baht').innerText = 'Null';
             }
@@ -103,7 +105,10 @@
             const kyatPerUsd = parseFloat(document.getElementById('kyat-per-usd').value);
             if (bahtPerUsd && kyatPerUsd && !isNaN(bahtAmount)) {
                 const kyatAmount = (bahtAmount / bahtPerUsd) * kyatPerUsd;
-                document.getElementById('kyat-result').innerText = `${kyatAmount.toFixed(2)}MMK`;
+                const kyatProfit = kyatAmount + (kyatAmount * 0.02);
+                document.getElementById('kyat-result').innerText = `${new Intl.NumberFormat('en-US').format(kyatAmount.toFixed(2))}MMK`;
+                document.getElementById('kyat-result-profit').innerText = `${new Intl.NumberFormat('en-US').format(kyatProfit.toFixed(2))}MMK - Profit`;
+                
             } else {
                 document.getElementById('kyat-result').innerText = 'Null';
             }
@@ -115,7 +120,9 @@
             const kyatPerUsd = parseFloat(document.getElementById('kyat-per-usd').value);
             if (bahtPerUsd && kyatPerUsd && !isNaN(kyatAmount)) {
                 const bahtAmount = (kyatAmount / kyatPerUsd) * bahtPerUsd;
-                document.getElementById('baht-result').innerText = `${bahtAmount.toFixed(2)}฿`;
+                const bahtProfit = bahtAmount + (bahtAmount * 0.02);
+                document.getElementById('baht-result').innerText = `${new Intl.NumberFormat('en-US').format(bahtAmount.toFixed(2))}฿`;
+                document.getElementById('baht-result-profit').innerText = `${new Intl.NumberFormat('en-US').format(bahtProfit.toFixed(2))}฿ - Profit`;
             } else {
                 document.getElementById('baht-result').innerText = 'Null';
             }
